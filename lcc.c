@@ -1,7 +1,9 @@
 #include<stdio.h>
-#include <string.h>
+#include<string.h>
 //TODO:add function mutibilty and imutablity keyword
 #define func static inline long long
+#define LESS_THAN <
+#define GREATER_THAN >
 typedef mutable;
 typedef immutable;
 typedef long long var;
@@ -78,198 +80,124 @@ const char RASCII[64]=
     '/','(',')','<','>','!',';','.',',','-',
     '"','�'
 };
-func pretokenise(const char*restrict OputStr,FILE*f)
+func pretokenise(const char*restrict OputStr,FILE*file)//NOTE:file is assumed to already existand has been handled before being passed to the pre tokeniser
 {
-    char*restrict TmpBuf;
-    int i=0
-    while(f[i]!=EOF)
+    char*restrict InTmpBuf;
+    while((InTmpBuf=fgetc(file))!=EOF)
     {
-        switch(*s)
+        putchar(ch);
+    }
+    char*restrict OutTmpBuf;
+    int i=0;
+    while(InTmpBuf[i]!=EOF)
+    {
+        if(f[i]GREATER_THAN=48)
         {
-            case'0':
+            if(f[i]LESS_THAN=57)
             {
-                TmpBuf[i]=0;
+                OutTmpBuf[i]=f[i]-48;
+            }
+        }
+        if(f[i]GREATER_THAN=65)
+        {
+            if(f[i]LESS_THAN=90)
+            {
+                OutTmpBuf[i]=f[i]-55;
+            }
+        }
+        if(f[i]GREATER_THAN=97)
+        {
+            if(f[i]LESS_THAN=122)
+            {
+                OutTmpBuf[i]=f[i]-87;
+            }
+        }
+        switch(f[i])
+        {
+            case' ':
+            {
+                OutTmpBuf[i]=36;
                 break;
             }
-            case'1':
+            case'=':
             {
-                TmpBuf[i]=1;
+                OutTmpBuf[i]=37;
                 break;
             }
-            case'2':
+            case'+':
             {
-                TmpBuf[i]=2;
+                OutTmpBuf[i]=38;
                 break;
             }
-            case'3':
+            case'*':
             {
-                TmpBuf[i]=3;
+                OutTmpBuf[i]=39;
                 break;
             }
-            case'4':
+            case'/':
             {
-                TmpBuf[i]=4;
+                OutTmpBuf[i]=40;
                 break;
             }
-            case'5':
+            case'(':
             {
-                TmpBuf[i]=5;
+                OutTmpBuf[i]=41;
                 break;
             }
-            case'6':
+            case')':
             {
-                TmpBuf[i]=6;
+                OutTmpBuf[i]=42;
                 break;
             }
-            case'7':
+            case'<':
             {
-                TmpBuf[i]=7;
+                OutTmpBuf[i]=43;
                 break;
             }
-            case'8':
+            case'>':
             {
-                TmpBuf[i]=8;
+                OutTmpBuf[i]=44;
                 break;
             }
-            case'9':
+            case'!':
             {
-                TmpBuf[i]=9;
+                OutTmpBuf[i]=45;
                 break;
             }
-            case'a':
+            case';':
             {
-                TmpBuf[i]=10;
+                OutTmpBuf[i]=46;
                 break;
             }
-            case'A':
+            case'.':
             {
-                TmpBuf[i]=10;
+                OutTmpBuf[i]=47;
                 break;
             }
-            case'b':
+            case',':
             {
-                TmpBuf[i]=11;
+                OutTmpBuf[i]=48;
                 break;
             }
-            case'B':
+            case'-':
             {
-                TmpBuf[i]=11;
+                OutTmpBuf[i]=49;
                 break;
             }
-            case'c':
+            case'"':
             {
-                TmpBuf[i]=12;
-                break;
+                OutTmpBuf[i]=50;
             }
-            case'C':
+            default:
             {
-                TmpBuf[i]=12;
-                break;
-            }
-            case'd':
-            {
-                TmpBuf[i]=13;
-                break;
-            }
-            case'D':
-            {
-                TmpBuf[i]=13;
-                break;
-            }
-            case'e':
-            {
-                TmpBuf[i]=14;
-                break;
-            }
-            case'E':
-            {
-                TmpBuf[i]=14;
-                break;
-            }
-            case'f':
-            {
-                TmpBuf[i]=15;
-                break;
-            }
-            case'F':
-            {
-                TmpBuf[i]=15;
-                break;
-            }
-            case'g':
-            {
-                TmpBuf[i]=16;
-                break;
-            }
-            case'G':
-            {
-                TmpBuf[i]=16;
-                break;
-            }
-            case'h':
-            {
-                TmpBuf[i]=17;
-                break;
-            }
-            case'H':
-            {
-                TmpBuf[i]=17;
-                break;
-            }
-            case'i':
-            {
-                TmpBuf[i]=18;
-                break;
-            }
-            case'I':
-            {
-                TmpBuf[i]=18;
-                break;
-            }
-            case'j':
-            {
-                TmpBuf[i]=19;
-                break;
-            }
-            case'J':
-            {
-                TmpBuf[i]=19;
-                break;
-            }
-            case'k':
-            {
-                TmpBuf[i]=20;
-                break;
-            }
-            case'K':
-            {
-                TmpBuf[i]=20;
-                break;
-            }
-            case'l':
-            {
-                TmpBuf[i]=21;
-                break;
-            }
-            case'L':
-            {
-                TmpBuf[i]=21;
-                break;
-            }
-            case'm':
-            {
-                TmpBuf[i]=22;
-                break;
-            }
-            case'M':
-            {
-                TmpBuf[i]=23;
+                OutTmpBuf[i]=51;
                 break;
             }
         }
         i++;
     }
-    return;
+    OputStr=
+    return i;
 }
 func tokenise(const char*restrict IputStr,var offset,const char*restrict OputStr)
 {
@@ -291,6 +219,25 @@ func tokenise(const char*restrict IputStr,var offset,const char*restrict OputStr
             {
                 TmpBuf[i]=ADD_TKN;
                 break;
+            }
+            case'-':
+            {
+                TmpBuf[i]=SUB_TKN;
+                break;
+            }
+            case'*':
+            {
+                TmpBuf[i]=MUL_TKN;
+                break;
+            }
+            case'/':
+            {
+                TmpBuf[i]=DIV_TKN;
+                break;
+            }
+            default:
+            {
+
             }
         }
     }
